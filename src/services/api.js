@@ -1,5 +1,3 @@
-const RAPIDAPI_KEY = import.meta.env.VITE_RAPIDAPI_KEY;
-const RAPIDAPI_WHISPER_KEY = import.meta.env.VITE_RAPIDAPI_WHISPER_KEY;
 
 let onQuotaUpdate = null;
 
@@ -16,7 +14,20 @@ function extractQuota(response, source) {
   }
 }
 
+export function getYoutubeApiKey() {
+  return localStorage.getItem('RAPIDAPI_YOUTUBE_KEY') || import.meta.env.VITE_RAPIDAPI_KEY || '';
+}
+
+export function getWhisperApiKey() {
+  return localStorage.getItem('RAPIDAPI_WHISPER_KEY') || import.meta.env.VITE_RAPIDAPI_WHISPER_KEY || '';
+}
+
 export async function convertYoutubeToMp3(videoId) {
+  const apiKey = getYoutubeApiKey();
+  if (!apiKey) {
+    throw new Error('API Key missing. Please set your YouTube RapidAPI key in Settings.');
+  }
+
   const url = `https://youtube-mp36.p.rapidapi.com/dl?id=${videoId}`;
 
   const options = {
@@ -24,7 +35,7 @@ export async function convertYoutubeToMp3(videoId) {
     headers: {
       'Content-Type': 'application/json',
       'x-rapidapi-host': 'youtube-mp36.p.rapidapi.com',
-      'x-rapidapi-key': RAPIDAPI_KEY
+      'x-rapidapi-key': apiKey
     }
   };
 
@@ -44,6 +55,11 @@ export async function convertYoutubeToMp3(videoId) {
 }
 
 export async function transcribeAudio(file) {
+  const apiKey = getWhisperApiKey();
+  if (!apiKey) {
+    throw new Error('API Key missing. Please set your Whisper RapidAPI key in Settings.');
+  }
+
   const url = 'https://chatgpt-42.p.rapidapi.com/whisperv3';
 
   const formData = new FormData();
@@ -53,7 +69,7 @@ export async function transcribeAudio(file) {
     method: 'POST',
     headers: {
       'x-rapidapi-host': 'chatgpt-42.p.rapidapi.com',
-      'x-rapidapi-key': RAPIDAPI_WHISPER_KEY
+      'x-rapidapi-key': apiKey
     },
     body: formData
   });

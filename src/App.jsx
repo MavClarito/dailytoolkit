@@ -89,10 +89,13 @@ function App() {
       </div>
 
       {/* Header */}
-      <h1 className="text-4xl font-extrabold tracking-tight mb-2 mt-8">Mav Tools</h1>
-      <p className="text-gray-500 dark:text-gray-400 mb-10 max-w-sm text-center">
-        A minimalist suite of powerful tools designed for speed and simplicity.
-      </p>
+      <div className="flex flex-col items-center mb-10 mt-8">
+        <img src="/MLogo.png" alt="Mav Tools Logo" className="w-16 h-16 mb-4 drop-shadow-sm" />
+        <h1 className="text-4xl font-extrabold tracking-tight mb-2">Mav Tools</h1>
+        <p className="text-gray-500 dark:text-gray-400 max-w-sm text-center">
+          A minimalist suite of powerful tools designed for speed and simplicity.
+        </p>
+      </div>
 
       {/* Main Container */}
       <div className="w-full max-w-[600px] flex flex-col items-center">

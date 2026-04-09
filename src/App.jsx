@@ -144,7 +144,7 @@ function App() {
         )}
       </div>
 
-      {/* Footer */}
+
       <div className="mt-auto pt-16 text-xs text-gray-400 dark:text-gray-600">
         &copy; {new Date().getFullYear()} Mav Tools. All rights reserved.
       </div>
